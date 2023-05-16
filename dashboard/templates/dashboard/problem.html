@@ -81,12 +81,12 @@
                     <span><span id="name-modal"></span>, your answers are <span id="status-modal"></span></span> <br>
                     <!-- `SigmaR = R_1 + R_2 + \frac{1}{\frac{1}{R_3} + \frac{1}{R_4}}` <br>
                 `SigmaI = \frac{epsi}{SigmaR}` <br> -->
-                    Total Resistance = <span id="tot-res"></span> Ω<br>
-                    Total Current = <span id="tot-cur"></span> Amps<br>
-                    Power One = <span id="power-one"></span> Watts<br>
-                    Power Two = <span id="power-two"></span> Watts<br>
-                    Power Three = <span id="power-three"></span> Watts<br>
-                    Power Four = <span id="power-four"></span> Watts<br>
+                    Total Resistance = <span id="tot-res"></span> Ω. Your answer is <span id="usr-tot-res"></span> Ω<br>
+                    Total Current = <span id="tot-cur"></span> Amps. Your answer is <span id="usr-tot-cur"></span> Amps<br>
+                    Power One = <span id="power-one"></span> Watts. Your answer is <span id="usr-power-one"></span> Watts.<br>
+                    Power Two = <span id="power-two"></span> Watts. Your answer is <span id="usr-power-two"></span> Watts.<br>
+                    Power Three = <span id="power-three"></span> Watts. Your answer is <span id="usr-power-three"></span> Watts.<br>
+                    Power Four = <span id="power-four"></span> Watts. Your answer is <span id="usr-power-four"></span> Watts.<br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="new" onclick="location.reload()">Try a new
@@ -243,7 +243,7 @@
                     img.height / 2 + 30
                 );
                 text(
-                    r3 + "Ω",
+                    r4 + "Ω",
                     screen.availWidth / 2 - img.width + 330,
                     img.height / 2 + 30
                 );
@@ -375,7 +375,7 @@
             console.log(expP3)
             console.log(expP4)
 
-            if (withinRange(expRTot, rTot, 0.02) && withinRange(expITot, iTot, 0.02) && withinRange(expP1, p1, 0.02) && withinRange(expP2, p2, 0.02) && withinRange(expP3, p3, 0.02) && withinRange(expP4, p4, 0.02)) {
+            if (withinRange(expRTot, rTot, 0.05) && withinRange(expITot, iTot, 0.05) && withinRange(expP1, p1, 0.05) && withinRange(expP2, p2, 0.05) && withinRange(expP3, p3, 0.05) && withinRange(expP4, p4, 0.05)) {
                 var explanation = new bootstrap.Modal(document.getElementById('explanation'))
                 document.getElementById("name-modal").innerText = name
                 document.getElementById("status-modal").innerText = "correct"
@@ -385,6 +385,13 @@
                 document.getElementById("power-two").innerText = expP2.toPrecision(3)
                 document.getElementById("power-three").innerText = expP3.toPrecision(3)
                 document.getElementById("power-four").innerText = expP4.toPrecision(3)
+
+                document.getElementById("usr-tot-res").innerText = rTot
+                document.getElementById("usr-tot-cur").innerText = iTot
+                document.getElementById("usr-power-one").innerText = p1
+                document.getElementById("usr-power-two").innerText = p2
+                document.getElementById("usr-power-three").innerText = p3
+                document.getElementById("usr-power-four").innerText = p4
 
                 var form = document.createElement("form")
                 form.setAttribute("method", "POST")
@@ -426,6 +433,14 @@
                 document.getElementById("power-three").innerText = expP3.toPrecision(3)
                 document.getElementById("power-four").innerText = expP4.toPrecision(3)
 
+                
+                document.getElementById("usr-tot-res").innerText = rTot
+                document.getElementById("usr-tot-cur").innerText = iTot
+                document.getElementById("usr-power-one").innerText = p1
+                document.getElementById("usr-power-two").innerText = p2
+                document.getElementById("usr-power-three").innerText = p3
+                document.getElementById("usr-power-four").innerText = p4
+
                 explanation.show()
             }
 
@@ -440,7 +455,7 @@
             let seed = Date.now();
             let gen = new Math.seedrandom(seed);
             for (let i = 1; i <= 4; i++) {
-                let lower_bound = 25 * i - 24;
+                let lower_bound = 25 * i - 14;
                 let upper_bound = 25 * i;
                 let random_num = Math.floor(gen() * (upper_bound - lower_bound + 1)) + lower_bound;
                 resistances.push(random_num);
